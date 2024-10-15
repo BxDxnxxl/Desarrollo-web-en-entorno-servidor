@@ -120,6 +120,33 @@ class ProgramaEducativo
         }
     }
 
+    public void EstudiantesRiesgoAReprobar(){
+        List<Estudiante> estudiantesEnRiesgo = new List<Estudiante>();
+
+    //usamos foreach para comprobar si el estudiante tiene por debajo del 5 los promedios, si es asi lo añadimos a la lista de estudiantes en riesgo
+    foreach (var estudiante in estudiantes)
+    {
+        if (estudiante.CalcularPromedio() < 5)
+        {
+            estudiantesEnRiesgo.Add(estudiante);
+        }
+    }
+
+    // controlamos si hay estudiantes en riesgo
+    if (estudiantesEnRiesgo.Count == 0)
+    {
+        Console.WriteLine("No hay estudiantes en riesgo de reprobar.");
+    }
+    else
+    {
+        Console.WriteLine("Estudiantes que estan en Riesgo de Reprobar: ");
+        foreach (var estudiante in estudiantesEnRiesgo)
+        {
+            Console.WriteLine($"Estudiante: {estudiante.Nombre} - Promedio: {estudiante.CalcularPromedio():F2}");
+        }
+    }
+    }
+
 
 
 }
