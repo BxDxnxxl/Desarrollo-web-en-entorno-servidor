@@ -103,5 +103,23 @@ class ProgramaEducativo
         }
     }
 
+    //funcion para hacer ranking de estudiantes
+    public void RankingEstudiantes()
+    {
+        // documentacion de como ordenar listas en c#: https://es.stackoverflow.com/questions/144984/ordenamiento-de-listas-c
+
+        var ranking = ranking.OrderByDescending(alumno => alumno.CalcularPromedio()).ToList();
+
+        Console.WriteLine("Ranking de Estudiantes: ");
+        int posicion = 1;
+        foreach (var estudiante in ranking)
+        {
+            //N2 se usa para indicar el numero de decimales que han de aparecer: https://es.stackoverflow.com/questions/91442/c%C3%B3mo-especificar-la-cantidad-de-decimales-de-un-double#:~:text=La%20forma%20mas%20f%C3%A1cil%3A,de%20n%C3%BAmero%20con%204%20decimales.
+            Console.WriteLine($"{posicion}. {estudiante.Nombre} - Promedio: {estudiante.CalcularPromedio():N2}");
+            posicion++;
+        }
+    }
+
+
 
 }
