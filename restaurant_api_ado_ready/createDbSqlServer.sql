@@ -1,0 +1,44 @@
+CREATE DATABASE RestauranteDB;
+
+SELECT name, database_id, create_date 
+FROM sys.databases 
+WHERE name = 'RestauranteDB';
+
+USE RestauranteDB;
+
+CREATE TABLE PlatoPrincipal (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre NVARCHAR(100) NOT NULL,
+    Precio DECIMAL(10, 2) NOT NULL CHECK (Precio >= 0),
+    Ingredientes NVARCHAR(MAX) NOT NULL
+);
+
+CREATE TABLE postre(
+id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+Nombre NVARCHAR(100) NOT NULL,
+Precio DECIMAL(10, 2) NOT NULL CHECK (Precio >= 0),
+Calorias int NOT NULL CHECK (Calorias >= 0),
+);
+
+CREATE TABLE bebida(
+id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+Nombre NVARCHAR(100) NOT NULL,
+Precio DECIMAL(10, 2) NOT NULL CHECK (Precio >= 0),
+esAlcoholica TINYINT NOT null
+);
+INSERT INTO PlatoPrincipal (Nombre, Precio, Ingredientes)
+VALUES 
+('Plato combinado', 12.50, 'Pollo, patatas, tomate'),
+('Plato vegetariano', 10.00, 'Tofu, verduras, arroz');
+
+SELECT * FROM PlatoPrincipal;
+
+SELECT * 
+FROM PlatoPrincipal
+WHERE Ingredientes LIKE '%Tofu%';
+
+SELECT * 
+FROM PlatoPrincipal
+ORDER BY Precio ASC;
+
+SELECT DISTINCT Nombre, Precio FROM PlatoPrincipal;
