@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RestauranteAPI.Repositories;
+using RestauranteAPI.Service;
 
 namespace RestauranteAPI.Controllers
 {
@@ -9,23 +10,23 @@ namespace RestauranteAPI.Controllers
    {
     private static List<PlatoPrincipal> platos = new List<PlatoPrincipal>();
 
-    private readonly IPlatoPrincipalRepository _repository;
+    private readonly IPlatoPrincipalService _servicePlatoPrincipal;
 
-    public PlatoPrincipalController(IPlatoPrincipalRepository repository)
+    public PlatoPrincipalController(IPlatoPrincipalService service)
         {
-            _repository = repository;
+            _servicePlatoPrincipal = service;
         }
     
         [HttpGet]
         public async Task<ActionResult<List<PlatoPrincipal>>> GetPlatos()
         {
-            var platos = await _repository.GetAllAsync();
+            var platos = await _servicePlatoPrincipal.GetAllAsync();
             return Ok(platos);
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<PlatoPrincipal>> GetPlato(int id)
         {
-            var plato = await _repository.GetByIdAsync(id);
+            var plato = await _servicePlatoPrincipal.GetByIdAsync(id);
             if (plato == null)
             {
                 return NotFound();
@@ -36,14 +37,14 @@ namespace RestauranteAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<PlatoPrincipal>> CreatePlato(PlatoPrincipal plato)
         {
-            await _repository.AddAsync(plato);
+            await _servicePlatoPrincipal.AddAsync(plato);
             return CreatedAtAction(nameof(GetPlato), new { id = plato.Id }, plato);
         }
 
        [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePlato(int id, PlatoPrincipal updatedPlato)
         {
-            var existingPlato = await _repository.GetByIdAsync(id);
+            var existingPlato = await _servicePlatoPrincipal.GetByIdAsync(id);
             if (existingPlato == null)
             {
                 return NotFound();
@@ -54,7 +55,7 @@ namespace RestauranteAPI.Controllers
             existingPlato.Precio = updatedPlato.Precio;
             existingPlato.Ingredientes = updatedPlato.Ingredientes;
 
-            await _repository.UpdateAsync(existingPlato);
+            await _servicePlatoPrincipal.UpdateAsync(existingPlato);
             return NoContent();
         }
 
@@ -63,19 +64,19 @@ namespace RestauranteAPI.Controllers
        [HttpDelete("{id}")]
        public async Task<IActionResult> DeletePlato(int id)
        {
-           var plato = await _repository.GetByIdAsync(id);
+           var plato = await _servicePlatoPrincipal.GetByIdAsync(id);
            if (plato == null)
            {
                return NotFound();
            }
-           await _repository.DeleteAsync(id);
+           await _servicePlatoPrincipal.DeleteAsync(id);
            return NoContent();
        }
 
         [HttpPost("inicializar")]
         public async Task<IActionResult> InicializarDatos()
         {
-            await _repository.InicializarDatosAsync();
+            await _servicePlatoPrincipal.InicializarDatosAsync();
             return Ok("Datos inicializados correctamente.");
         }
 

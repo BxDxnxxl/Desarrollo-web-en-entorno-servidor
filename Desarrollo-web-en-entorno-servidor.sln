@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "classroom", "classroom\classroom.csproj", "{F9E2C900-5573-6710-B08C-FCA0982FAB35}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "restaurant_api", "restaurant_api_ado_ready\restaurant_api.csproj", "{D3033121-EF54-A3C2-CD83-6E7E03D4B473}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F9E2C900-5573-6710-B08C-FCA0982FAB35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9E2C900-5573-6710-B08C-FCA0982FAB35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9E2C900-5573-6710-B08C-FCA0982FAB35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9E2C900-5573-6710-B08C-FCA0982FAB35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3033121-EF54-A3C2-CD83-6E7E03D4B473}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3033121-EF54-A3C2-CD83-6E7E03D4B473}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3033121-EF54-A3C2-CD83-6E7E03D4B473}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3033121-EF54-A3C2-CD83-6E7E03D4B473}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6309B5A6-0206-4FF0-B267-810A409ED694}
+	EndGlobalSection
+EndGlobal

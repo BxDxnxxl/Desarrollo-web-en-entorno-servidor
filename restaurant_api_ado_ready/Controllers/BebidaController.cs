@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RestauranteAPI.Repositories;
+using RestauranteAPI.Service;
 
 namespace RestauranteAPI.Controllers
 {
@@ -9,23 +10,23 @@ namespace RestauranteAPI.Controllers
    {
     private static List<Bebida> bebidas = new List<Bebida>();
 
-    private readonly IBebidaRepository _repository;
+    private readonly IBebidaService _serviceBebida;
 
-    public BebidaController(IBebidaRepository repository)
+    public BebidaController(IBebidaService service)
         {
-            _repository = repository;
+            _serviceBebida = service;
         }
     
         [HttpGet]
         public async Task<ActionResult<List<Bebida>>> GetBebidas()
         {
-            var bebidas = await _repository.GetAllAsync();
+            var bebidas = await _serviceBebida.GetAllAsync();
             return Ok(bebidas);
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Bebida>> GetBebida(int id)
         {
-            var bebida = await _repository.GetByIdAsync(id);
+            var bebida = await _serviceBebida.GetByIdAsync(id);
             if (bebida == null)
             {
                 return NotFound();
@@ -34,48 +35,48 @@ namespace RestauranteAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Bebida>> CreateBebida(Bebida bebida)
+        public async Task<ActionResult<PlatoPrincipal>> CreateBebida(Bebida bebida)
         {
-            await _repository.AddAsync(bebida);
+            await _serviceBebida.AddAsync(bebida);
             return CreatedAtAction(nameof(GetBebida), new { id = bebida.Id }, bebida);
         }
 
        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateBebida(int id, Bebida bebidaActualizada)
+        public async Task<IActionResult> UpdateBebida(int id, Bebida updateBebida)
         {
-            var bebidaExistente = await _repository.GetByIdAsync(id);
-            if (bebidaExistente == null)
+            var existingBebida = await _serviceBebida.GetByIdAsync(id);
+            if (existingBebida == null)
             {
                 return NotFound();
             }
 
             // Actualizar el plato existente
-            bebidaExistente.Nombre = bebidaActualizada.Nombre;
-            bebidaExistente.Precio = bebidaActualizada.Precio;
-            bebidaExistente.EsAlcoholica = bebidaActualizada.EsAlcoholica;
+            existingBebida.Nombre = updateBebida.Nombre;
+            existingBebida.Precio = updateBebida.Precio;
+            existingBebida.EsAlcoholica = updateBebida.EsAlcoholica;
 
-            await _repository.UpdateAsync(bebidaExistente);
+            await _serviceBebida.UpdateAsync(existingBebida);
             return NoContent();
         }
 
         ///Cambio necesario///
   
        [HttpDelete("{id}")]
-       public async Task<IActionResult> DeleteBebida(int id)
+       public async Task<IActionResult> DeletePlato(int id)
        {
-           var bebida = await _repository.GetByIdAsync(id);
+           var bebida = await _serviceBebida.GetByIdAsync(id);
            if (bebida == null)
            {
                return NotFound();
            }
-           await _repository.DeleteAsync(id);
+           await _serviceBebida.DeleteAsync(id);
            return NoContent();
        }
 
         [HttpPost("inicializar")]
         public async Task<IActionResult> InicializarDatos()
         {
-            await _repository.InicializarDatosAsync();
+            await _serviceBebida.InicializarDatosAsync();
             return Ok("Datos inicializados correctamente.");
         }
 

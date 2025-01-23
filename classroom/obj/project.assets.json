@@ -8,31 +8,24 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\S2-PC00\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\soyun\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\S2-PC00\\Downloads\\tmp\\Desarrollo-web-en-entorno-servidor\\classroom\\classroom.csproj",
+      "projectUniqueName": "C:\\Users\\soyun\\Downloads\\temporal\\Ev1-Html\\Desarrollo-web-en-entorno-servidor\\classroom\\classroom.csproj",
       "projectName": "classroom",
-      "projectPath": "c:\\Users\\S2-PC00\\Downloads\\tmp\\Desarrollo-web-en-entorno-servidor\\classroom\\classroom.csproj",
-      "packagesPath": "C:\\Users\\S2-PC00\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\S2-PC00\\Downloads\\tmp\\Desarrollo-web-en-entorno-servidor\\classroom\\obj\\",
+      "projectPath": "C:\\Users\\soyun\\Downloads\\temporal\\Ev1-Html\\Desarrollo-web-en-entorno-servidor\\classroom\\classroom.csproj",
+      "packagesPath": "C:\\Users\\soyun\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\soyun\\Downloads\\temporal\\Ev1-Html\\Desarrollo-web-en-entorno-servidor\\classroom\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\S2-PC00\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\soyun\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -71,7 +64,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.405/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
