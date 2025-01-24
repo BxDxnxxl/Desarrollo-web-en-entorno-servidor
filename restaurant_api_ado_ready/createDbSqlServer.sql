@@ -20,6 +20,29 @@ Precio DECIMAL(10, 2) NOT NULL CHECK (Precio >= 0),
 Calorias int NOT NULL CHECK (Calorias >= 0),
 );
 
+CREATE TABLE usuairo(
+id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+Nombre NVARCHAR(100) NOT NULL,
+Apellidos NVARCHAR(100) NOT NULL,
+NombreUsuario NVARCHAR(100) NOT NULL
+);
+
+CREATE TABLE compra(
+id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+FkIdUsuario int NOT NULL,
+CONSTRAINT FK_IdUsuario FOREIGN KEY (FkIdUsuario)
+        REFERENCES usuario(id)
+);
+
+create table lineadepedido(
+id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+fkIdcompra int NOT NULL,
+producto NVARCHAR(100) NOT NULL,
+PRIMARY KEY (fkIdcompra, producto),
+CONSTRAINT fkIdcompra FOREIGN KEY (fkIdcompra)
+        REFERENCES compra(id)
+)
+
 CREATE TABLE bebida(
 id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 Nombre NVARCHAR(100) NOT NULL,

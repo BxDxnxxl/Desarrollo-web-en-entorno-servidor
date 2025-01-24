@@ -1,65 +1,84 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using RestauranteAPI.Repositories;
 using RestauranteAPI.Service;
 
-namespace RestauranteAPI.Service
+namespace RestauranteAPI.Controllers
 {
-    public class BebidaService : IBebidaService
-    {
-        private readonly IBebidaRepository _bebidaRepository;
+   [Route("api/[controller]")]
+   [ApiController]
+   public class UsuarioController : ControllerBase
+   {
+    private static List<Usuario> usuarios = new List<Usuario>();
 
-        public BebidaService(IBebidaRepository bebidaRepository)
+    private readonly IUsuarioService _serviceUsuario;
+
+    public UsuarioController(IUsuarioService service)
         {
-            _bebidaRepository = bebidaRepository;
+            _serviceUsuario = service;
+        }
+    
+        [HttpGet]
+        public async Task<ActionResult<List<Usuario>>> GetUsuarios()
+        {
+            var usuarios = await _serviceUsuario.GetAllAsync();
+            return Ok(usuarios);
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Usuario>> GetUsuario(int id)
+        {
+            var usuario = await _serviceUsuario.GetByIdAsync(id);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+            return Ok(usuario);
         }
 
-        public async Task<List<Bebida>> GetAllAsync()
+        [HttpPost]
+        public async Task<ActionResult<Usuario>> CreateUsuario(Usuario usuario)
         {
-            return await _bebidaRepository.GetAllAsync();
+            await _serviceUsuario.AddAsync(usuario);
+            return CreatedAtAction(nameof(GetUsuario), new { id = usuario.Id }, usuario);
         }
 
-        public async Task<Bebida?> GetByIdAsync(int id)
+       [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUsuario(int id, Usuario updateUsuario)
         {
-            return await _bebidaRepository.GetByIdAsync(id);
+            var existingUsuario = await _serviceUsuario.GetByIdAsync(id);
+            if (existingUsuario == null)
+            {
+                return NotFound();
+            }
+
+            // Actualizar el plato existente
+            existingUsuario.Nombre = updateUsuario.Nombre;
+            existingUsuario.Apellidos = updateUsuario.Apellidos;
+            existingUsuario.UsuarioNombre = updateUsuario.UsuarioNombre;
+
+            await _serviceUsuario.UpdateAsync(existingUsuario);
+            return NoContent();
         }
 
-
-        public async Task AddAsync(Bebida bebida)
-        {
-            await _bebidaRepository.AddAsync(bebida);
-        }
-
-        public async Task UpdateAsync(Bebida bebida)
-        {
-            await _bebidaRepository.UpdateAsync(bebida);
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-           var bebida = await _bebidaRepository.GetByIdAsync(id);
-           if (bebida == null)
+        ///Cambio necesario///
+  
+       [HttpDelete("{id}")]
+       public async Task<IActionResult> DeleteUsuario(int id)
+       {
+           var usuario = await _serviceUsuario.GetByIdAsync(id);
+           if (usuario == null)
            {
-               //return NotFound();
+               return NotFound();
            }
-           await _bebidaRepository.DeleteAsync(id);
-           //return NoContent();
-        }
-        
-        public async Task InicializarDatosAsync()
-        {
-            await _bebidaRepository.InicializarDatosAsync();
-        }
-        /*
-        public async Task AddPlatoPrincipalAsync(PlatoPrincipal platoPrincipal)
-        {
-            if (platoPrincipal == null)
-                throw new ArgumentNullException(nameof(platoPrincipal));
+           await _serviceUsuario.DeleteAsync(id);
+           return NoContent();
+       }
 
-            await _platoPrincipalRepository.AddAsync(platoPrincipal);
-        }*/
-    }
+        [HttpPost("inicializar")]
+        public async Task<IActionResult> InicializarDatos()
+        {
+            await _serviceUsuario.InicializarDatosAsync();
+            return Ok("Datos inicializados correctamente.");
+        }
+
+   }
 }
-
-
