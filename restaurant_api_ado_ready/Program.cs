@@ -14,6 +14,15 @@ new PostreRepository(connectionString));
 builder.Services.AddScoped<IBebidaRepository, BebidaRepository>(provider =>
 new BebidaRepository(connectionString));
 
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>(provider =>
+new UsuarioRepository(connectionString));
+
+builder.Services.AddScoped<ICompraRepository, CompraRepository>(provider =>
+new CompraRepository(connectionString));
+
+builder.Services.AddScoped<ILineaDePedidoRepository, LineaDePedidoRepository>(provider =>
+new LineaDePedidoRepository(connectionString));
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -25,6 +34,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IPlatoPrincipalService, PlatoPrincipalService>();
 builder.Services.AddScoped<IBebidaService, IBebidaService>();
 builder.Services.AddScoped<IPostreService, PostreService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 var app = builder.Build();
 

@@ -1,84 +1,54 @@
-using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using RestauranteAPI.Repositories;
 using RestauranteAPI.Service;
-
-namespace RestauranteAPI.Controllers
+namespace RestauranteAPI.Service
 {
-   [Route("api/[controller]")]
-   [ApiController]
-   public class UsuarioController : ControllerBase
-   {
-    private static List<Usuario> usuarios = new List<Usuario>();
-
-    private readonly IUsuarioService _serviceUsuario;
-
-    public UsuarioController(IUsuarioService service)
+    public class BebidaService : IBebidaService
+    {
+        private readonly IBebidaRepository _bebidaRepository;
+        public BebidaService(IBebidaRepository bebidaRepository)
         {
-            _serviceUsuario = service;
+            _bebidaRepository = bebidaRepository;
         }
-    
-        [HttpGet]
-        public async Task<ActionResult<List<Usuario>>> GetUsuarios()
+        public async Task<List<Bebida>> GetAllAsync()
         {
-            var usuarios = await _serviceUsuario.GetAllAsync();
-            return Ok(usuarios);
+            return await _bebidaRepository.GetAllAsync();
         }
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Usuario>> GetUsuario(int id)
+        public async Task<Bebida?> GetByIdAsync(int id)
         {
-            var usuario = await _serviceUsuario.GetByIdAsync(id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-            return Ok(usuario);
+            return await _bebidaRepository.GetByIdAsync(id);
         }
-
-        [HttpPost]
-        public async Task<ActionResult<Usuario>> CreateUsuario(Usuario usuario)
+        public async Task AddAsync(Bebida bebida)
         {
-            await _serviceUsuario.AddAsync(usuario);
-            return CreatedAtAction(nameof(GetUsuario), new { id = usuario.Id }, usuario);
+            await _bebidaRepository.AddAsync(bebida);
         }
-
-       [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUsuario(int id, Usuario updateUsuario)
+        public async Task UpdateAsync(Bebida bebida)
         {
-            var existingUsuario = await _serviceUsuario.GetByIdAsync(id);
-            if (existingUsuario == null)
-            {
-                return NotFound();
-            }
-
-            // Actualizar el plato existente
-            existingUsuario.Nombre = updateUsuario.Nombre;
-            existingUsuario.Apellidos = updateUsuario.Apellidos;
-            existingUsuario.UsuarioNombre = updateUsuario.UsuarioNombre;
-
-            await _serviceUsuario.UpdateAsync(existingUsuario);
-            return NoContent();
+            await _bebidaRepository.UpdateAsync(bebida);
         }
-
-        ///Cambio necesario///
-  
-       [HttpDelete("{id}")]
-       public async Task<IActionResult> DeleteUsuario(int id)
-       {
-           var usuario = await _serviceUsuario.GetByIdAsync(id);
-           if (usuario == null)
+        public async Task DeleteAsync(int id)
+        {
+           var bebida = await _bebidaRepository.GetByIdAsync(id);
+           if (bebida == null)
            {
-               return NotFound();
+               //return NotFound();
            }
-           await _serviceUsuario.DeleteAsync(id);
-           return NoContent();
-       }
-
-        [HttpPost("inicializar")]
-        public async Task<IActionResult> InicializarDatos()
-        {
-            await _serviceUsuario.InicializarDatosAsync();
-            return Ok("Datos inicializados correctamente.");
+           await _bebidaRepository.DeleteAsync(id);
+           //return NoContent();
         }
-
-   }
+        
+        public async Task InicializarDatosAsync()
+        {
+            await _bebidaRepository.InicializarDatosAsync();
+        }
+        /*
+        public async Task AddPlatoPrincipalAsync(PlatoPrincipal platoPrincipal)
+        {
+            if (platoPrincipal == null)
+                throw new ArgumentNullException(nameof(platoPrincipal));
+            await _platoPrincipalRepository.AddAsync(platoPrincipal);
+        }*/
+    }
 }

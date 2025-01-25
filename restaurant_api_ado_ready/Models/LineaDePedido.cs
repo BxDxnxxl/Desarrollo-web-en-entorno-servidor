@@ -1,15 +1,23 @@
-using Models;
+public class LineaDePedido
+{
+    public int Id { get; set; }
+    public int FkIdCompra { get; set; }
+    public int PlatoPrincipalId { get; set; }
+    public int PostreId { get; set; }
+    public int BebidaId { get; set; }
+    public int Cantidad { get; set; }
 
-public class LineaPedido {
+    // Constructor
+    public LineaDePedido(int fkIdCompra, int platoPrincipalId, int postreId, int bebidaId, int cantidad)
+    {
+        FkIdCompra = fkIdCompra;
+        PlatoPrincipalId = platoPrincipalId;
+        PostreId = postreId;
+        BebidaId = bebidaId;
+        Cantidad = cantidad;
+    }
 
-  public int Id {get; set;}
-  public int FkIdCompra {get; set;}
-  public int FkIdProducto{get; set;}
-
-  public LineaPedido(int id, int fkIdCompra, int fkIdProducto) {
-    Id = id;
-    FkIdCompra = fkIdCompra;
-    FkIdProducto = fkIdProducto; 
-  }
-
+    public LineaDePedido(){
+        
+    }
 }
